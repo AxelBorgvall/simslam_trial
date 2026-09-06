@@ -188,3 +188,25 @@ class Environment:
         cv2.line(img, (px, py), (hx, hy), (0, 0, 255), 2)
 
         return img
+
+    def render_robot_to_img(self,img:np.ndarray,lidar_scan=None):
+        h, w = self.map.grid.shape
+
+        rx, ry, rtheta = self.robopos
+        px = int(rx / self.map.dx)
+        py = int(ry / self.map.dx)
+        if lidar_scan is not None:
+            for angle, dist in zip(self.angles, lidar_scan):
+                ray_theta = rtheta + angle
+                ex = int((rx + dist * np.cos(ray_theta)) / self.map.dx)
+                ey = int((ry + dist * np.sin(ray_theta)) / self.map.dx)
+                cv2.line(img, (px, py), (ex, ey), (200, 255, 200), 1)
+
+        radius_px = max(2, int(0.2 / self.map.dx)) 
+        cv2.circle(img, (px, py), radius_px, (255, 0, 0), -1)
+
+        hx = int(px + radius_px * 2 * np.cos(rtheta))
+        hy = int(py + radius_px * 2 * np.sin(rtheta))
+        cv2.line(img, (px, py), (hx, hy), (0, 0, 255), 2)
+
+        return
