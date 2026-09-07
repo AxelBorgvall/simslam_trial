@@ -108,6 +108,7 @@ class Environment:
         self.l = map.grid.shape[0] * map.dx
         self.n_side = map.grid.shape[0]
         self.max_lidar_range = 8.0
+        self.lidarscan=None
 
         self.X, self.Y = np.meshgrid(
             np.linspace(0, self.l, map.grid.shape[0]),
@@ -153,15 +154,21 @@ class Environment:
         return np.clip(noisy_distances, 0, self.max_lidar_range)
 
     def step(self, dt: float):
-            lidar_scan = self.lidardata()
-            v, omega = self.robot.move(lidar_scan)
-            x, y, theta = self.robopos
-            x_new = x + (v * np.cos(theta) * dt)
-            y_new = y + (v * np.sin(theta) * dt)
-            theta_new = theta + (omega * dt)
-            theta_new = (theta_new + np.pi) % (2 * np.pi) - np.pi
-            self.robopos = (x_new, y_new, theta_new)
-            return (v, omega), lidar_scan
+        if self.lidarscan is None:
+            self.lidarscan=self.lidardata()
+        v, omega = self.robot.move(self.lidarscan)
+        
+        x, y, theta = self.robopos
+        x_new = x + (v * np.cos(theta) * dt)
+        y_new = y + (v * np.sin(theta) * dt)
+        theta_new = theta + (omega * dt)
+        theta_new = (theta_new + np.pi) % (2 * np.pi) - np.pi
+        self.robopos = (x_new, y_new, theta_new)
+        
+        lidar_scan_slam = self.lidardata()
+        self.lidarscan=lidar_scan_slam.copy()
+        
+        return (v, omega), lidar_scan_slam
 
     def render(self, lidar_scan=None):
         h, w = self.map.grid.shape
