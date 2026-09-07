@@ -116,6 +116,10 @@ class PFLocalizer:
         img_guess = img_true.copy()
         self.env.render_robot_to_img(img_true, lidar_scan)
 
+        centroid=(np.sum(self.weights[:,None]*self.particles[:,:2],axis=0)/np.sum(self.weights)/self.env.map.dx).astype(np.int64)
+        cv2.circle(img_true, (centroid[0], centroid[1]), 4, (0, 0, 255), -1)
+
+
         # render particles to second image
         xp = self.particles[:, 0]
         yp = self.particles[:, 1]

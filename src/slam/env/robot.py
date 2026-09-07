@@ -131,7 +131,6 @@ class Environment:
         self.angles = np.linspace(
             -robot.spread / 2, robot.spread / 2, robot.n_rays, dtype=np.float64
         )
-        print(self.robopos)
 
     def lidardata(self):
         rx, ry, rtheta = self.robopos
