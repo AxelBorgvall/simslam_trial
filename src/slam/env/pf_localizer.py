@@ -93,7 +93,8 @@ class PFLocalizer:
     def resample(self):
         cdf = np.cumsum(self.weights)
         
-        n_keep = int(self.n_part * 0.95)
+        # n_keep = int(self.n_part * 0.95)
+        n_keep = int(self.n_part * 1.0)
         n_random = self.n_part - n_keep
         
         r = np.random.uniform(0, 1 / n_keep)
