@@ -5,8 +5,8 @@ from slam import *
 
 
 def main():
-    my_map = GridMap.from_file(DATA_DIR/Path("map1.npz"))
-    robot = Robot(n_rays=20, spread=np.pi, speed=0.5, angvel=1.0,reactrange=3,k=0.05)
+    my_map = GridMap.from_file(DATA_DIR/Path("map2.npz"))
+    robot = Robot(n_rays=180, spread=np.pi, speed=0.5, angvel=0.2, reactrange=3, k=0.8)
     env = Environment(robot=robot, map=my_map)
 
     dt = 0.20

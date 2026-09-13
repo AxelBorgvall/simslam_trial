@@ -244,7 +244,7 @@ def correlative_scan_match(
 
 
 class GMapper:
-    def __init__(self,env:Environment, n_part:int, ang_noise=0.05,vel_noise=0.05,resampling_temperature=8.0,search_distance:int=2,l_free=0.2,l_occ=0.90):
+    def __init__(self,env:Environment, n_part:int, ang_noise=0.05,vel_noise=0.05,resampling_temperature=8.0,search_distance:int=2,l_free=0.4,l_occ=0.90):
         self.env=env
         self.resampling_temp=resampling_temperature
         self.n_part=n_part

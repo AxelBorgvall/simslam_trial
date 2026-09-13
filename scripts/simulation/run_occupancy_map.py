@@ -24,7 +24,7 @@ def fit_to_canvas(img, max_w, max_h, bg_color=(127, 127, 127)):
 
 def main():
     my_map = GridMap.from_file(DATA_DIR / Path("map1.npz"))
-    robot = Robot(n_rays=20, spread=np.pi, speed=0.5, angvel=1.0, reactrange=3, k=0.05)
+    robot = Robot(n_rays=180, spread=np.pi, speed=0.5, angvel=1.0, reactrange=3, k=1.0)
     env = Environment(robot=robot, map=my_map)
     
     mapper = OccupancyMapper(env, cellsize=(64, 64))
