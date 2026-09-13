@@ -90,8 +90,8 @@ class Robot:
         dists=lidardata[close_mask]
         angles=self.angles[close_mask]
         magnitudes = -self.k / (dists**2 + 1e-6)
-        fx=np.sum(magnitudes*np.cos(angles))
-        fy=np.sum(magnitudes*np.sin(angles))
+        fx=np.sum(magnitudes*np.cos(angles))/self.n_rays
+        fy=np.sum(magnitudes*np.sin(angles))/self.n_rays
 
         vector_x=self.speed+fx
         vector_y=fy

@@ -3,3 +3,4 @@ from slam.env.robot import *
 from slam.env.pf_localizer import *
 from slam.env.pf_scanmatch_localizer import *
 from slam.env.occupancy_map import *
+from slam.env.gmapping import *
