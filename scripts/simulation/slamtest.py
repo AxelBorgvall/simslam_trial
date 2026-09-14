@@ -23,11 +23,11 @@ def fit_to_canvas(img, max_w, max_h, bg_color=(127, 127, 127)):
     )
 
 def main():
-    my_map = GridMap.from_file(DATA_DIR / Path("map2.npz"))
-    robot = Robot(n_rays=360, spread=2*np.pi, speed=0.5, angvel=0.2, reactrange=3, k=0.8)
+    my_map = GridMap.from_file(DATA_DIR / Path("map3.npz"))
+    robot = Robot(n_rays=360, spread=2*np.pi, speed=0.5, angvel=0.2, reactrange=3, k=0.2)
     env = Environment(robot=robot, map=my_map)
     
-    slammer = GMapper(env,30,resampling_temperature=3.0,search_distance=3)
+    slammer = GMapper(env,30,resampling_temperature=3.0,search_distance=2)
     dt = 0.20
     
     PANEL_SIZE = 600 

@@ -117,8 +117,8 @@ class Environment:
 
         # PLace the robot
         self.robopos = None
-        for x in np.flip(np.arange(1,self.l-1,0.5)):
-            for y in np.flip(np.arange(1, self.l-1, 0.5)):
+        for x in np.flip(np.arange(0,self.l-1,0.5)):
+            for y in np.flip(np.arange(0, self.l-1, 0.5)):
                 close2robo = dist((x, y), (self.X, self.Y)) < 0.25
                 if np.all(~map.grid[close2robo]):
                     self.robopos = (x, y, 2.0)
