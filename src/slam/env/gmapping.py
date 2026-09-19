@@ -244,7 +244,7 @@ def correlative_scan_match(
 
 
 class GMapper:
-    def __init__(self,env:Environment, n_part:int, ang_noise=0.05,vel_noise=0.05,resampling_temperature=8.0,search_distance:int=2,l_free=0.4,l_occ=0.90):
+    def __init__(self,env:Environment, n_part:int, ang_noise=0.05,vel_noise=0.05,resampling_temperature=8.0,search_distance:int=2,l_free=0.4,l_occ=0.90,scanmatch_dx=None,scanmatch_xy_radius=2,scanmatch_th_radius=2):
         self.env=env
         self.resampling_temp=resampling_temperature
         self.n_part=n_part
@@ -267,10 +267,14 @@ class GMapper:
 
 
         # Scan Matcher Parameters
-        self.xy_step = self.env.map.dx*2      # Resolution of spatial search
-        self.n_xy_steps = 2                 # +/- 2 steps -> 5x5 grid
+        if scanmatch_dx is None:
+            self.xy_step = self.env.map.dx      # Resolution of spatial search
+        else:
+            self.xy_step=scanmatch_dx
+        self.n_xy_steps = scanmatch_xy_radius                 # +/- 2 steps -> 5x5 grid
+
         self.th_step = 0.05                 # ~2.8 degrees resolution
-        self.n_th_steps = 2                 # +/- 2 steps -> 5 angles
+        self.n_th_steps = scanmatch_th_radius                 # +/- 2 steps -> 5 angles
         # Total local search space: 5 * 5 * 5 = 125 poses per particle
     
 
@@ -329,6 +333,7 @@ class GMapper:
         # Resample
         n_eff = 1.0 / (np.sum(self.weights**2) + 1e-10)
         if n_eff < self.n_part / 2.0:
+            print("WE ARE RESAMPLING NOW!!!!")
             self.resample()
 
             

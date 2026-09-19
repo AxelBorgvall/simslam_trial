@@ -23,7 +23,7 @@ draw_rect(grid,(7.5,2),(1.5,2))
 draw_rect(grid,(9,0),(1,1))
 
 draw_rect(grid,(2,6),(2,2))
-draw_rect(grid,(0,6.5),(3,1))
+draw_rect(grid,(0,7.0),(3,1))
 draw_rect(grid,(5.5,6),(3,2))
 
 draw_rect(grid,(9,9),(1,1))

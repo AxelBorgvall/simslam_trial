@@ -24,11 +24,11 @@ def fit_to_canvas(img, max_w, max_h, bg_color=(127, 127, 127)):
 
 def main():
     my_map = GridMap.from_file(DATA_DIR / Path("map2.npz"))
-    robot = Robot(n_rays=360, spread=2*np.pi, speed=0.5, angvel=0.2, reactrange=3, k=0.8)
+    robot = Robot(n_rays=360, spread=2*np.pi, speed=0.5, angvel=0.8, reactrange=2.5, k=1.0)
     env = Environment(robot=robot, map=my_map)
     
-    slammer = GMapper(env,30,resampling_temperature=3.0,search_distance=3)
-    dt = 0.20
+    slammer = GMapper(env,30,resampling_temperature=8.0,search_distance=4,scanmatch_dx=1*my_map.dx,scanmatch_xy_radius=2,scanmatch_th_radius=2)
+    dt = 0.05
     
     PANEL_SIZE = 600 
     
@@ -47,7 +47,7 @@ def main():
         combined_frame = cv2.hconcat([display_frame1, display_frame2])
         cv2.imshow("robotest", combined_frame)
         
-        key = cv2.waitKey(int(dt * 100)) & 0xFF
+        key = cv2.waitKey(int(dt * 20)) & 0xFF
         if key == ord('q'):
             break
             
